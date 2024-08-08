@@ -8,7 +8,7 @@ import EditarUsuario from "./pages/EditarUsuario";
 import Filmes from "./pages/Filmes";
 import NovoFilme from "./pages/NovoFilme";
 import EditarFilme from "./pages/EditarFilme";
-
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
           <Route path="/filmes/novo" element={<NovoFilme />} />
           <Route path="/filmes/editar/:id" element={<EditarFilme />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
       <Toaster position="bottom-right" />
     </>

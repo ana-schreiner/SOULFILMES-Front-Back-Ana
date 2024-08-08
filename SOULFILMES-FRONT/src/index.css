@@ -1,5 +1,16 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
+.conteudo {
+    min-height: calc(100vh - 80px);
+    display: flex;
+}
+
+.full-size-image {
+    width: 100%;
+    height: auto;
+    flex-grow: 1;
+}
+
 .header {
     background-color: #2a2a2a;
 }
@@ -16,4 +27,14 @@
 
 .header nav a:hover {
     color: #ffcc00;
+}
+
+.footer {
+    position: relative;
+    background-color: #2a2a2a;
+    color: white;
+}
+
+.footer-brand {
+    margin-top: 10px;
 }
