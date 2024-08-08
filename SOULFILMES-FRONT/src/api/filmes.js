@@ -28,7 +28,7 @@ export async function deleteFilme(id) {
 // Função para obter filmes associados a um usuário específico
 export async function getFilmesDoUsuario(usuarioId) {
     try {
-      const response = await axios.get(`/usuarios/${usuarioId}/filmes`); // Ajustar a URL se necessário
+      const response = await axios.get(`http://localhost:3001/usuarios/${usuarioId}/filmes`); // Ajustar a URL se necessário
       return response.data;
     } catch (error) {
       console.error("Erro ao obter filmes do usuário:", error.response.data);

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getUsuario, updateUsuario } from "../api/usuarios";
 import { Form, Button } from "react-bootstrap";
 import { toast } from "react-hot-toast";
@@ -18,6 +18,8 @@ function EditarUsuario() {
       cep: "",
     },
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUsuario(id).then((data) => {
@@ -41,6 +43,7 @@ function EditarUsuario() {
     e.preventDefault();
     updateUsuario(id, usuario).then(() => {
       toast.success("Usuário atualizado com sucesso!");
+      navigate("/usuarios");
     }).catch((error) => {
       // console log especificando o erro
       console.error("Erro ao atualizar o usuário:", error.response);

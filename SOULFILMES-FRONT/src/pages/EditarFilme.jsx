@@ -18,18 +18,21 @@ function EditarFilme() {
   const { id } = useParams();
 
   function atualizarFilme(data) {
-    if (data.dataNasc === "") data.dataNasc = null;
+    if (data.anoLancamento === "") data.anoLancamento = null;
     updateFilme(id, data).then((resposta) => {
       toast.success(resposta.message);
-      navigate("/pets");
+      navigate("/filmes");
     })
+    .catch((err) => {
+      toast.error(err.response.data.message);
+    });
   }
 
   function carregarFilme() {
     getFilme(id).then((dados) => {
       reset(dados);
     }).catch((err) => {
-      navigate("/pets");
+      navigate("/filmes");
     });
   }
 
@@ -39,55 +42,55 @@ function EditarFilme() {
 
   return (
     <main className="mt-4 container">
-      <h1>Editar pet</h1>
+      <h1>Editar filme</h1>
       <hr />
       <form onSubmit={handleSubmit(atualizarFilme)}>
         <div>
-          <label htmlFor="nome">Nome</label>
+          <label htmlFor="titulo">titulo</label>
           <input
             type="text"
-            id="nome"
+            id="titulo"
             className="form-control"
-            {...register("nome", { required: true, maxLength: 200 })}
+            {...register("titulo", { required: true, maxLength: 200 })}
           />
-          {errors.nome && (
-            <small className="text-danger">O nome é inválido!</small>
+          {errors.titulo && (
+            <small className="text-danger">O titulo é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="tipo">Tipo</label>
+          <label htmlFor="diretor">diretor</label>
           <input
             type="text"
-            id="tipo"
+            id="diretor"
             className="form-control"
-            {...register("tipo", { required: true, maxLength: 200 })}
+            {...register("diretor", { required: true, maxLength: 200 })}
           />
-          {errors.tipo && (
-            <small className="text-danger">O tipo é inválido!</small>
+          {errors.diretor && (
+            <small className="text-danger">O diretor é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="porte">Porte</label>
+          <label htmlFor="genero">genero</label>
           <input
             type="text"
-            id="porte"
+            id="genero"
             className="form-control"
-            {...register("porte", { required: true, maxLength: 200 })}
+            {...register("genero", { required: true, maxLength: 200 })}
           />
-          {errors.porte && (
-            <small className="text-danger">O porte é inválido!</small>
+          {errors.genero && (
+            <small className="text-danger">O genero é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="dataNasc">Data Nascimento</label>
+          <label htmlFor="anoLancamento">Ano de Lançamento</label>
           <input
-            type="date"
-            id="dataNasc"
+            type="number"
+            id="anoLancamento"
             className="form-control"
-            {...register("dataNasc")}
+            {...register("anoLancamento", { required: false })}
           />
-          {errors.dataNasc && (
-            <small className="text-danger">A data é inválida!</small>
+          {errors.anoLancamento && (
+            <small className="text-danger">O ano é inválido!</small>
           )}
         </div>
         <Button className="mt-3" type="submit">
