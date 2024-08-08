@@ -62,6 +62,7 @@ usuarioRouter.post('/usuarios', async (req, res) => {
 usuarioRouter.put('/usuarios/:id', async (req, res) => {
   const idUsuario = req.params.id;
   const { nome, email, telefone, endereco } = req.body;
+  console.log(req.body);
 
   try {
     const UsuarioAtualizado = await Usuario.findOne({ where: { id: idUsuario }, include: [Endereco] });
@@ -73,11 +74,16 @@ usuarioRouter.put('/usuarios/:id', async (req, res) => {
         telefone
       });
 
-      if (UsuarioAtualizado.Endereco) {
-        await UsuarioAtualizado.Endereco.update(endereco);
+      let EnderecoAtualizado = await Endereco.findOne({ where: { usuarioId: idUsuario } });
+
+      if (EnderecoAtualizado) {
+        // Atualize o endereço existente
+        await EnderecoAtualizado.update(endereco);
       } else {
+        // Crie um novo endereço sem especificar o ID
         await Endereco.create({ ...endereco, usuarioId: idUsuario });
       }
+
 
       res.json({ message: 'Usuário atualizado com sucesso!' });
     } else {
@@ -85,7 +91,7 @@ usuarioRouter.put('/usuarios/:id', async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Erro ao atualizar o usuário!' });
+    res.status(500).json({ message: 'Erro ao atualizar o usuário!', error: err.message });
   }
 });
 

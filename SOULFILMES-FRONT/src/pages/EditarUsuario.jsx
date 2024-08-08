@@ -42,7 +42,9 @@ function EditarUsuario() {
     updateUsuario(id, usuario).then(() => {
       toast.success("Usuário atualizado com sucesso!");
     }).catch((error) => {
-      toast.error("Erro ao atualizar o usuário.");
+      // console log especificando o erro
+      console.error("Erro ao atualizar o usuário:", error.response);
+      toast.error("Erro ao atualizar o usuário.", error.response.data.message);
     });
   };
 
