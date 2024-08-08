@@ -15,8 +15,6 @@ function NovoFilme() {
 
   const navigate = useNavigate();
 
-  const [usuarios, setUsuarios] = useState([]);
-
   function salvarFilme(data) {
     addFilme(data).then((resposta) => {
       toast.success(resposta.message);
@@ -26,19 +24,6 @@ function NovoFilme() {
       toast.error("Erro ao cadastrar filme");
     });
   }
-
-  function carregarUsuarios() {
-    getUsuarios().then((dados) => {
-      setUsuarios(dados);
-    }).catch((err) => {
-      console.log(err);
-      toast.error("Erro ao carregar usuários");
-    });
-  }
-
-  useEffect(() => {
-    carregarUsuarios();
-  }, []);
 
   return (
     <main className="mt-4 container">
@@ -55,6 +40,18 @@ function NovoFilme() {
           />
           {errors.titulo && (
             <small className="text-danger">O título é inválido!</small>
+          )}
+        </div>
+        <div>
+          <label htmlFor="diretor">Diretor</label>
+          <input
+            type="text"
+            id="diretor"
+            className="form-control"
+            {...register("diretor", { required: true, maxLength: 200 })}
+          />
+          {errors.diretor && (
+            <small className="text-danger">O diretor é inválido!</small>
           )}
         </div>
         <div>
@@ -79,25 +76,6 @@ function NovoFilme() {
           />
           {errors.anoLancamento && (
             <small className="text-danger">O ano de lançamento é inválido!</small>
-          )}
-        </div>
-        <div>
-          <label htmlFor="UsuarioId">Usuário</label>
-          <select
-            className="form-select"
-            {...register("usuarioId", { required: true, valueAsNumber: true })}
-          >
-            <option value="">Selecione um usuário</option>
-            {usuarios.map((usuario) => {
-              return (
-                <option key={usuario.id} value={usuario.id}>
-                  {usuario.nome} - {usuario.email}
-                </option>
-              );
-            })}
-          </select>
-          {errors.usuarioId && (
-            <small className="text-danger">Selecione um usuário</small>
           )}
         </div>
         <Button className="mt-3" type="submit">
