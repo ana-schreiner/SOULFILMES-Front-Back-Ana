@@ -1,10 +1,10 @@
-import { connection } from '../config/database.js';
-import { DataTypes } from 'sequelize';
-import { Endereco } from './endereco.js';
-import { Filme } from './filme.js';
-import { usuarioFilme } from './usuarioFilme.js';
+import { connection } from "../config/database.js";
+import { DataTypes } from "sequelize";
+import { Endereco } from "./endereco.js";
+import { Filme } from "./filme.js";
+import { usuarioFilme } from "./usuarioFilme.js";
 
-export const Usuario = connection.define('usuario', {
+export const Usuario = connection.define("usuario", {
   nome: {
     type: DataTypes.STRING(130),
     allowNull: false,
@@ -22,15 +22,28 @@ export const Usuario = connection.define('usuario', {
 
 Usuario.hasOne(Endereco, {
   foreignKey: {
-    name: 'usuarioId',
+    name: "usuarioId",
     allowNull: false,
   },
-  onDelete: 'CASCADE',
+  onDelete: "CASCADE",
 });
 Endereco.belongsTo(Usuario, {
-  foreignKey: 'usuarioId',
-  onDelete: 'CASCADE',
+  foreignKey: "usuarioId",
+  onDelete: "CASCADE",
 });
 
-Usuario.belongsToMany(Filme, { through: 'usuario_filme', as: 'Filmes' }); // para associação de N:N
-Filme.belongsToMany(Usuario, { through: 'usuario_filme', as: 'Usuarios' });
+//Usuario.belongsToMany(Filme, { through: 'usuario_filme', as: 'Filmes' }); // para associação de N:N
+//Filme.belongsToMany(Usuario, { through: 'usuario_filme', as: 'Usuarios' });
+
+// No modelo Usuario
+Usuario.belongsToMany(Filme, {
+  through: "UsuarioFilme",
+  as: "Filmes",
+  foreignKey: "usuarioId",
+});
+// No modelo Filme
+Filme.belongsToMany(Usuario, {
+  through: "UsuarioFilme",
+  as: "Usuarios",
+  foreignKey: "filmeId",
+});
