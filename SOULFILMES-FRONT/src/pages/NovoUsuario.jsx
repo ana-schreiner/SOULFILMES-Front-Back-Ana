@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { addUsuario } from "../api/usuarios";
@@ -12,9 +12,23 @@ function NovoUsuario() {
   } = useForm();
 
   const navigate = useNavigate();
+  function salvarUsuario(dadosForm) {
+    // Estrutura os dados do endereço em um objeto aninhado
+    const dadosUsuario = {
+      nome: dadosForm.nome,
+      email: dadosForm.email,
+      telefone: dadosForm.telefone,
+      endereco: {
+        cidade: dadosForm.cidade,
+        uf: dadosForm.uf,
+        cep: dadosForm.cep,
+        rua: dadosForm.rua,
+        numero: dadosForm.numero,
+        pagamento: dadosForm.pagamento,
+      },
+    };
 
-  function salvarUsuario(data) {
-    addUsuario(data).then((resposta) => {
+    addUsuario(dadosUsuario).then((resposta) => {
       toast.success(resposta.message);
       navigate("/usuarios");
     }).catch((err) => {
@@ -22,11 +36,12 @@ function NovoUsuario() {
     });
   }
 
+
   return (
-    <main className="mt-4 container">
+    <main className="mt-4 w-50 p-5 justify-content-center container">
       <h1>Novo Usuário</h1>
       <hr />
-      <form onSubmit={handleSubmit(salvarUsuario)}>
+      <Form onSubmit={handleSubmit(salvarUsuario)}>
         <div>
           <label htmlFor="nome">Nome</label>
           <input
@@ -123,10 +138,28 @@ function NovoUsuario() {
             <small className="text-danger">O número é inválido!</small>
           )}
         </div>
-        <Button className="mt-3" type="submit">
-          Cadastrar
-        </Button>
-      </form>
+        <div>
+          <label htmlFor="pagamento">Forma de pagamento</label>
+          <select
+            id="pagamento"
+            className="form-control"
+            {...register("pagamento", { required: true })}
+          >
+            <option value="" selected disabled>Selecione</option>
+            <option value="">Boleto</option>
+            <option value="">Cartão</option>
+            <option value="">Pix</option>
+          </select>
+          {errors.pagamento && (
+            <small className="text-danger">A forma de pagamento é inválida!</small>
+          )}
+        </div>
+        <div className="d-flex mt-2 justify-content-center">
+          <Button variant="outline-dark" type="submit">
+            Cadastrar
+          </Button>
+        </div>
+      </Form>
     </main>
   );
 }

@@ -5,6 +5,9 @@ import { getFilmesDoUsuario } from "../api/filmes"; // Importar a função para 
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
+// fontawesome
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt, faFilm } from '@fortawesome/free-solid-svg-icons';
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState(null);
@@ -15,13 +18,16 @@ function Usuarios() {
     getUsuarios()
       .then((dados) => {
         const usuariosEndereco = dados.map((usuario) => {
+          // Verifica se o endereço não é nulo antes de acessar suas propriedades
+          const endereco = usuario.endereco || {};
           return {
             ...usuario,
-            cidade: usuario.endereco.cidade,
-            uf: usuario.endereco.uf,
-            cep: usuario.endereco.cep,
-            rua: usuario.endereco.rua,
-            numero: usuario.endereco.numero,
+            cidade: endereco.cidade || 'Cidade não informada',
+            uf: endereco.uf || 'UF não informada',
+            cep: endereco.cep || 'CEP não informado',
+            rua: endereco.rua || 'Rua não informada',
+            numero: endereco.numero || 'Número não informado',
+            pagamento: endereco.pagamento || 'Pagamento não informado',
           };
         });
         setUsuarios(usuariosEndereco);
@@ -66,7 +72,7 @@ function Usuarios() {
   return (
     <main className='mt-4 container'>
       <h1>Usuários</h1>
-      <Button as={Link} to='/usuarios/novo'>
+      <Button variant='outline-dark' as={Link} to='/usuarios/novo'>
         Adicionar Usuário
       </Button>
       <hr />
@@ -83,6 +89,7 @@ function Usuarios() {
                 <th>CEP</th>
                 <th>Rua</th>
                 <th>Número</th>
+                <th>Pagamento</th>
                 <th>Ações</th>
                 <th>Filmes Assistidos</th>
               </tr>
@@ -98,28 +105,33 @@ function Usuarios() {
                   <td>{usuario.cep}</td>
                   <td>{usuario.rua}</td>
                   <td>{usuario.numero}</td>
+                  <td>{usuario.pagamento}</td>
                   <td>
                     <Button
-                      variant='danger'
+                      variant='outline-danger'
+                      className="me-3"
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >
-                      Excluir
+                      <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
                     <Button
+                      variant='outline-dark'
                       size='sm'
                       as={Link}
                       to={`/usuarios/editar/${usuario.id}`}
                     >
-                      Editar
+                      <FontAwesomeIcon icon={faEdit} />
                     </Button>
                   </td>
                   <td>
                     <Button
+                      variant='outline-dark'
+                      className="ms-3"
                       size='sm'
                       onClick={() => carregarFilmes(usuario.id)}
                     >
-                      Mostrar Filmes
+                      <FontAwesomeIcon icon={faFilm} />
                     </Button>
                   </td>
                 </tr>

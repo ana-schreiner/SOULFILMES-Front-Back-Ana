@@ -24,6 +24,6 @@ export const Endereco = connection.define('endereco', {
   },
   pagamento: {
     type: DataTypes.STRING,
-    allowNull: false,
+    allowNull: true,
   }
 });
