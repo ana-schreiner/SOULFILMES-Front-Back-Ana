@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { deleteFilme, getFilmes, getUsuariosDoFilme } from "../api/filmes";
-import {  } from "../api/usuarios";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt, faUser } from "@fortawesome/free-solid-svg-icons"; // Adicionei o ícone de usuário aqui
 
 function Filmes() {
   const [filmes, setFilmes] = useState(null);
@@ -79,7 +77,7 @@ function Filmes() {
                 <th>Gênero</th>
                 <th>Ano de Lançamento</th>
                 <th>Ações</th>
-                <th>Usuários</th>
+                <th>Usuários</th> {/* Adicionei esta coluna de volta */}
               </tr>
             </thead>
             <tbody>
@@ -90,24 +88,32 @@ function Filmes() {
                   <td>{filme.genero}</td>
                   <td>{filme.anoLancamento}</td>
                   <td>
-
                     <Button 
-                    variant='outline-danger'
-                    className="me-2"
-                    size='sm' 
-                    onClick={() => deletarFilme(filme.id)}
+                      variant='outline-danger'
+                      className="me-2"
+                      size='sm' 
+                      onClick={() => deletarFilme(filme.id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
 
                     <Button 
-                    variant='outline-dark'
-                    size="sm" 
-                    as={Link} 
-                    to={`/filmes/editar/${filme.id}`}
+                      variant='outline-dark'
+                      size="sm" 
+                      as={Link} 
+                      to={`/filmes/editar/${filme.id}`}
                     >
                       <FontAwesomeIcon icon={faEdit}/>
-
+                    </Button>
+                  </td>
+                  <td>
+                    <Button
+                      variant='outline-dark'
+                      className='ms-3'
+                      size='sm'
+                      onClick={() => carregarUsuarios(filme.id)} // Este botão chama a função para carregar os usuários
+                    >
+                      <FontAwesomeIcon icon={faUser} /> {/* Ícone de usuário */}
                     </Button>
                   </td>
                 </tr>
