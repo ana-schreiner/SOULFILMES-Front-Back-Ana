@@ -19,81 +19,84 @@ function EditarFilme() {
 
   function atualizarFilme(data) {
     if (data.anoLancamento === "") data.anoLancamento = null;
-    updateFilme(id, data).then((resposta) => {
-      toast.success(resposta.message);
-      navigate("/filmes");
-    })
-    .catch((err) => {
-      toast.error(err.response.data.message);
-    });
+    updateFilme(id, data)
+      .then((resposta) => {
+        toast.success(resposta.message);
+        navigate("/filmes");
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message);
+      });
   }
 
   function carregarFilme() {
-    getFilme(id).then((dados) => {
-      reset(dados);
-    }).catch((err) => {
-      navigate("/filmes");
-    });
+    getFilme(id)
+      .then((dados) => {
+        reset(dados);
+      })
+      .catch((err) => {
+        navigate("/filmes", err);
+      });
   }
 
   useEffect(() => {
     carregarFilme();
-  }, [])
+  }, []);
 
   return (
-    <main className="mt-4 container">
+    <main className='mt-4 container'>
       <h1>Editar filme</h1>
       <hr />
       <form onSubmit={handleSubmit(atualizarFilme)}>
         <div>
-          <label htmlFor="titulo">titulo</label>
+          <label htmlFor='titulo'>titulo</label>
           <input
-            type="text"
-            id="titulo"
-            className="form-control"
+            type='text'
+            id='titulo'
+            className='form-control'
             {...register("titulo", { required: true, maxLength: 200 })}
           />
           {errors.titulo && (
-            <small className="text-danger">O titulo é inválido!</small>
+            <small className='text-danger'>O titulo é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="diretor">diretor</label>
+          <label htmlFor='diretor'>diretor</label>
           <input
-            type="text"
-            id="diretor"
-            className="form-control"
+            type='text'
+            id='diretor'
+            className='form-control'
             {...register("diretor", { required: true, maxLength: 200 })}
           />
           {errors.diretor && (
-            <small className="text-danger">O diretor é inválido!</small>
+            <small className='text-danger'>O diretor é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="genero">genero</label>
+          <label htmlFor='genero'>genero</label>
           <input
-            type="text"
-            id="genero"
-            className="form-control"
+            type='text'
+            id='genero'
+            className='form-control'
             {...register("genero", { required: true, maxLength: 200 })}
           />
           {errors.genero && (
-            <small className="text-danger">O genero é inválido!</small>
+            <small className='text-danger'>O genero é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor="anoLancamento">Ano de Lançamento</label>
+          <label htmlFor='anoLancamento'>Ano de Lançamento</label>
           <input
-            type="number"
-            id="anoLancamento"
-            className="form-control"
+            type='number'
+            id='anoLancamento'
+            className='form-control'
             {...register("anoLancamento", { required: false })}
           />
           {errors.anoLancamento && (
-            <small className="text-danger">O ano é inválido!</small>
+            <small className='text-danger'>O ano é inválido!</small>
           )}
         </div>
-        <Button className="mt-3" type="submit">
+        <Button className='mt-3' type='submit'>
           Atualizar
         </Button>
       </form>

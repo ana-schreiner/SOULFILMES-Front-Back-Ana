@@ -1,7 +1,6 @@
 import { Filme } from "../models/filme.js";
 import { Usuario } from "../models/usuario.js";
 import { Router } from "express";
-import { usuarioRouter } from "./usuarios.js";
 
 export const filmeRouter = Router();
 
@@ -62,10 +61,12 @@ filmeRouter.post("/filmes", async (req, res) => {
         .json({ message: "Erro ao inserir o filme!", errors: err.errors });
     }
 
-    res.status(500).json({
-      message: "Erro no servidor ao inserir o filme!",
-      errors: err.errors,
-    });
+    res
+      .status(500)
+      .json({
+        message: "Erro no servidor ao inserir o filme!",
+        errors: err.errors,
+      });
   }
 });
 
@@ -79,13 +80,15 @@ filmeRouter.put("/filmes/:id", async (req, res) => {
     if (filmeAtualizado) {
       const { titulo, diretor, genero, anoLancamento } = req.body;
       await filmeAtualizado.update({ titulo, diretor, genero, anoLancamento });
-      res.json({ message: "Filme atualizado com sucesso!", filmeAtualizado });
+      res.json({ message: "Filme atualizado com sucesso!" });
     } else {
       res.status(404).json({ message: "Filme não encontrado!" });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Erro ao atualizar o filme!", error: err });
+    res
+      .status(500)
+      .json({ message: "Erro ao atualizar o filme!", error: err.message });
   }
 });
 
@@ -104,33 +107,40 @@ filmeRouter.delete("/filmes/:id", async (req, res) => {
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Erro ao deletar o filme!", error: err });
+    res.status(500).json({ message: "Erro ao deletar o filme!" });
   }
 });
 
-// Rota para listar filmes assistidos por um usuário
-usuarioRouter.get("/usuarios/:id/filmes", async (req, res) => {
-  const usuarioId = req.params.id;
+// Rota para listar os usuários associados a um filme específico
+filmeRouter.get("/filmes/:id/usuarios", async (req, res) => {
+  const filmeId = req.params.id;
 
   try {
-    const usuario = await Usuario.findByPk(usuarioId, {
+    const filme = await Filme.findByPk(filmeId, {
       include: [
         {
-          model: Filme,
-          as: "Filmes",
+          model: Usuario,
+          as: "Usuarios",
+          attributes: ["id", "nome"],
           through: { attributes: [] },
         },
       ],
     });
 
-    if (usuario) {
-      const filmes = usuario.Filmes || []; // Verificar se o usuário possui filmes
-      res.status(200).json(filmes);
+    if (filme && filme.Usuarios && filme.Usuarios.length > 0) {
+      res.status(200).json(filme.Usuarios);
     } else {
-      res.status(404).json({ message: "Usuário não encontrado" });
+      res
+        .status(404)
+        .json({ message: "Filme não encontrado ou não possui usuários!" });
     }
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: "Erro ao buscar os filmes do usuário" });
+    res
+      .status(500)
+      .json({
+        message: "Erro ao buscar os usuários do filme!",
+        error: err.message,
+      });
   }
 });
