@@ -11,6 +11,5 @@ export const usuarioFilme = connection.define('usuarioFilme', {
   filmeId: {
     type: DataTypes.INTEGER,
     primaryKey: true
-  } // aqui estava o erro. tableName: 'usuario_filme' e timestamps: false
-  // são opcionais, mas se não forem passados, o Sequelize tentará criar uma tabela com o nome 'usuarioFilmes' e com colunas 'createdAt' e 'updatedAt' que não existem no modelo.
+  } 
 });

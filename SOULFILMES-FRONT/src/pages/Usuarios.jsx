@@ -1,4 +1,3 @@
-
 import { Button, Table, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { deleteUsuario, getUsuarios } from "../api/usuarios";
@@ -85,7 +84,7 @@ function Usuarios() {
                 <th>Rua</th>
                 <th>Número</th>
                 <th>Ações</th>
-                <th>Filmes</th>
+                <th>Filmes Assistidos</th>
               </tr>
             </thead>
             <tbody>
