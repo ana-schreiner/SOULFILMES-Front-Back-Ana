@@ -16,17 +16,17 @@ function App() {
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/usuarios" element={<Usuarios />} />
-          <Route path="/usuarios/novo" element={<NovoUsuario />} />
-          <Route path="/usuarios/editar/:id" element={<EditarUsuario />} />
-          <Route path="/filmes" element={<Filmes />} />
-          <Route path="/filmes/novo" element={<NovoFilme />} />
-          <Route path="/filmes/editar/:id" element={<EditarFilme />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/usuarios' element={<Usuarios />} />
+          <Route path='/usuarios/novo' element={<NovoUsuario />} />
+          <Route path='/usuarios/editar/:id' element={<EditarUsuario />} />
+          <Route path='/filmes' element={<Filmes />} />
+          <Route path='/filmes/novo' element={<NovoFilme />} />
+          <Route path='/filmes/editar/:id' element={<EditarFilme />} />
         </Routes>
         <Footer />
       </BrowserRouter>
-      <Toaster position="bottom-right" />
+      <Toaster position='bottom-right' />
     </>
   );
 }

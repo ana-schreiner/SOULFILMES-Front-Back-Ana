@@ -56,109 +56,116 @@ function EditarUsuario() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateUsuario(id, usuario).then(() => {
-      toast.success("Usuário atualizado com sucesso!");
-      navigate("/usuarios");
-    }).catch((error) => {
-      // console log especificando o erro
-      console.error("Erro ao atualizar o usuário:", error.response);
-      toast.error("Erro ao atualizar o usuário.", error.response.data.message);
-    });
+    updateUsuario(id, usuario)
+      .then(() => {
+        toast.success("Usuário atualizado com sucesso!");
+        navigate("/usuarios");
+      })
+      .catch((error) => {
+        // console log especificando o erro
+        console.error("Erro ao atualizar o usuário:", error.response);
+        toast.error(
+          "Erro ao atualizar o usuário.",
+          error.response.data.message
+        );
+      });
   };
 
   return (
-    <main className="mt-4 w-50 p-5 justify-content-center container">
+    <main className='mt-4 w-50 p-5 justify-content-center container'>
       <h1>Editar Usuário</h1>
       <hr />
       <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="nome">
+        <Form.Group controlId='nome'>
           <Form.Label>Nome</Form.Label>
           <Form.Control
-            type="text"
-            name="nome"
+            type='text'
+            name='nome'
             value={usuario.nome}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="email">
+        <Form.Group controlId='email'>
           <Form.Label>Email</Form.Label>
           <Form.Control
-            type="email"
-            name="email"
+            type='email'
+            name='email'
             value={usuario.email}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="telefone">
+        <Form.Group controlId='telefone'>
           <Form.Label>Telefone</Form.Label>
           <Form.Control
-            type="text"
-            name="telefone"
+            type='text'
+            name='telefone'
             value={usuario.telefone}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="rua">
+        <Form.Group controlId='rua'>
           <Form.Label>Rua</Form.Label>
           <Form.Control
-            type="text"
-            name="rua"
+            type='text'
+            name='rua'
             value={usuario.endereco.rua}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="numero">
+        <Form.Group controlId='numero'>
           <Form.Label>Número</Form.Label>
           <Form.Control
-            type="text"
-            name="numero"
+            type='text'
+            name='numero'
             value={usuario.endereco.numero}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="cidade">
+        <Form.Group controlId='cidade'>
           <Form.Label>Cidade</Form.Label>
           <Form.Control
-            type="text"
-            name="cidade"
+            type='text'
+            name='cidade'
             value={usuario.endereco.cidade}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="uf">
+        <Form.Group controlId='uf'>
           <Form.Label>UF</Form.Label>
           <Form.Control
-            type="text"
-            name="uf"
+            type='text'
+            name='uf'
             value={usuario.endereco.uf}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="cep">
+        <Form.Group controlId='cep'>
           <Form.Label>CEP</Form.Label>
           <Form.Control
-            type="text"
-            name="cep"
+            type='text'
+            name='cep'
             value={usuario.endereco.cep}
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="pagamento">
+        <Form.Group controlId='pagamento'>
           <Form.Label>Pagamento</Form.Label>
           <Form.Control
-            as="select"
-            name="pagamento"
+            as='select'
+            name='pagamento'
             value={usuario.endereco.pagamento}
             onChange={handleChange}
           >
-            <option value="" disabled selected>Selecione...</option>
-            <option value="Boleto">Boleto</option>
-            <option value="Cartão">Cartão</option>
-            <option value="Pix">Pix</option>
+            <option value='' disabled selected>
+              Selecione...
+            </option>
+            <option value='Boleto'>Boleto</option>
+            <option value='Cartão'>Cartão</option>
+            <option value='Pix'>Pix</option>
           </Form.Control>
         </Form.Group>
-        <div className="d-flex mt-2 justify-content-center">
-          <Button variant="outline-dark" type="submit">
+        <div className='d-flex mt-2 justify-content-center'>
+          <Button variant='outline-dark' type='submit'>
             Atualizar
           </Button>
         </div>

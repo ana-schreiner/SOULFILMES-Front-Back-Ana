@@ -14,8 +14,8 @@ export async function addFilme(data) {
   try {
     const response = await axios.post("http://localhost:3001/filmes", data, {
       headers: {
-        'Content-Type': 'application/json'
-      }
+        "Content-Type": "application/json",
+      },
     });
     return response.data; // Objeto com message
   } catch (error) {
@@ -37,10 +37,25 @@ export async function deleteFilme(id) {
 // Função para obter filmes associados a um usuário específico
 export async function getFilmesDoUsuario(usuarioId) {
   try {
-    const response = await axios.get(`http://localhost:3001/usuarios/${usuarioId}/filmes`); // Ajustar a URL se necessário
+    const response = await axios.get(
+      `http://localhost:3001/usuarios/${usuarioId}/filmes`
+    ); // Ajustar a URL se necessário
     return response.data;
   } catch (error) {
     console.error("Erro ao obter filmes do usuário:", error.response.data);
+    throw error;
+  }
+}
+
+// Função para obter usuários associados a um filme específico
+export async function getUsuariosDoFilme(filmeId) {
+  try {
+    const response = await axios.get(
+      `http://localhost:3001/filmes/${filmeId}/usuarios`
+    ); // Ajustar a URL se necessário
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao obter usuários do filme:", error.response.data);
     throw error;
   }
 }

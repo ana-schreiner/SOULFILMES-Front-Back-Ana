@@ -1,8 +1,7 @@
-import { connection } from "../config/database.js";
-import { DataTypes } from "sequelize";
-import { Usuario } from "./usuario.js"; // Ajuste o caminho conforme necessário
+import { connection } from '../config/database.js';
+import { DataTypes } from 'sequelize';
 
-export const Filme = connection.define("filme", {
+export const Filme = connection.define('filme', {
   titulo: {
     type: DataTypes.STRING(130),
     allowNull: false,
@@ -20,5 +19,3 @@ export const Filme = connection.define("filme", {
     allowNull: false,
   },
 });
-
-

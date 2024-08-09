@@ -5,9 +5,8 @@ import { getFilmesDoUsuario } from "../api/filmes"; // Importar a função para 
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-// fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt, faFilm } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt, faFilm } from "@fortawesome/free-solid-svg-icons";
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState(null);
@@ -22,12 +21,12 @@ function Usuarios() {
           const endereco = usuario.endereco || {};
           return {
             ...usuario,
-            cidade: endereco.cidade || 'Cidade não informada',
-            uf: endereco.uf || 'UF não informada',
-            cep: endereco.cep || 'CEP não informado',
-            rua: endereco.rua || 'Rua não informada',
-            numero: endereco.numero || 'Número não informado',
-            pagamento: endereco.pagamento || 'Pagamento não informado',
+            cidade: endereco.cidade || "Cidade não informada",
+            uf: endereco.uf || "UF não informada",
+            cep: endereco.cep || "CEP não informado",
+            rua: endereco.rua || "Rua não informada",
+            numero: endereco.numero || "Número não informado",
+            pagamento: endereco.pagamento || "Pagamento não informado",
           };
         });
         setUsuarios(usuariosEndereco);
@@ -109,7 +108,9 @@ function Usuarios() {
                   <td className="d-flex justify-content-start">
                     <Button
                       variant='outline-danger'
+
                       className="me-2"
+
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >
@@ -127,7 +128,7 @@ function Usuarios() {
                   <td>
                     <Button
                       variant='outline-dark'
-                      className="ms-3"
+                      className='ms-3'
                       size='sm'
                       onClick={() => carregarFilmes(usuario.id)}
                     >
