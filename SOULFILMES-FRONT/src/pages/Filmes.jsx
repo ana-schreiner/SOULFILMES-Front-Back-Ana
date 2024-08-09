@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { deleteFilme, getFilmes } from "../api/filmes";
-import { getUsuariosDoFilme } from "../api/usuarios";
+import { deleteFilme, getFilmes, getUsuariosDoFilme } from "../api/filmes";
+import {  } from "../api/usuarios";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

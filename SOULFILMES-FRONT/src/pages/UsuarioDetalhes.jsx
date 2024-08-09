@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Table, Button, Modal, Form } from "react-bootstrap";
-import { getUsuario } from "../api/usuarios"; // Importe a função aqui
-import { getFilmes, addFilmeAoUsuario, removeFilmeDoUsuario, getFilmesDoUsuario } from "../api/filmes";
+import { getUsuario, addFilmeAoUsuario, removeFilmeDoUsuario } from "../api/usuarios"; // Importe a função aqui
+import { getFilmes, getFilmesDoUsuario } from "../api/filmes";
 import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 
