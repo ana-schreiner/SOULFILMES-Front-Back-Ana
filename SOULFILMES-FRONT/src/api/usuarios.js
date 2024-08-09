@@ -1,37 +1,61 @@
-// Este arquivo possui funções para realizar
-// as operações do CRUD de usuarios
 import axios from "axios";
 
+// Função para obter todos os usuários
 export async function getUsuarios() {
   try {
     const response = await axios.get("http://localhost:3001/usuarios");
     return response.data;
   } catch (error) {
-    // Aqui você pode lidar com o erro, por exemplo, registrando-o ou exibindo uma mensagem ao usuário
-    console.error("Erro ao obter usuários:", error);
-    throw error; // Re-lança o erro para ser tratado onde a função é chamada
+    console.error("Erro ao obter usuários:", error.message);
+    throw error;
   }
 }
 
+// Função para adicionar um novo usuário
 export async function addUsuario(data) {
-  // O 2º parâmetro do post é corpo da requisição
-  const response = await axios.post("http://localhost:3001/usuarios", data);
-  return response.data;
+  try {
+    const response = await axios.post("http://localhost:3001/usuarios", data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao adicionar usuário:", error.message);
+    throw error;
+  }
 }
 
+// Função para deletar um usuário
 export async function deleteUsuario(id) {
-  const response = await axios.delete(`http://localhost:3001/usuarios/${id}`);
-  return response.data;
+  try {
+    const response = await axios.delete(`http://localhost:3001/usuarios/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao deletar usuário:", error.message);
+    throw error;
+  }
 }
 
+// Função para obter um usuário específico
 export async function getUsuario(id) {
-  const response = await axios.get(`http://localhost:3001/usuarios/${id}`);
-  return response.data;
+  try {
+    const response = await axios.get(`http://localhost:3001/usuarios/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao obter usuário:", error.message);
+    throw error;
+  }
 }
 
+// Função para atualizar um usuário
 export async function updateUsuario(id, data) {
-  const response = await axios.put(`http://localhost:3001/usuarios/${id}`, data);
-  return response.data;
+  try {
+    const response = await axios.put(
+      `http://localhost:3001/usuarios/${id}`,
+      data
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error.message);
+    throw error;
+  }
 }
 
 

@@ -5,9 +5,8 @@ import { deleteUsuario, getUsuarios } from "../api/usuarios";
 import UsuarioDetalhes from "./UsuarioDetalhes"; // Importar o componente
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-// fontawesome
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt, faFilm } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt, faFilm } from "@fortawesome/free-solid-svg-icons";
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState(null);
@@ -21,12 +20,12 @@ function Usuarios() {
           const endereco = usuario.endereco || {};
           return {
             ...usuario,
-            cidade: endereco.cidade || 'Cidade não informada',
-            uf: endereco.uf || 'UF não informada',
-            cep: endereco.cep || 'CEP não informado',
-            rua: endereco.rua || 'Rua não informada',
-            numero: endereco.numero || 'Número não informado',
-            pagamento: endereco.pagamento || 'Pagamento não informado',
+            cidade: endereco.cidade || "Cidade não informada",
+            uf: endereco.uf || "UF não informada",
+            cep: endereco.cep || "CEP não informado",
+            rua: endereco.rua || "Rua não informada",
+            numero: endereco.numero || "Número não informado",
+            pagamento: endereco.pagamento || "Pagamento não informado",
           };
         });
         setUsuarios(usuariosEndereco);
@@ -99,10 +98,12 @@ function Usuarios() {
                   <td>{usuario.rua}</td>
                   <td>{usuario.numero}</td>
                   <td>{usuario.pagamento}</td>
-                  <td>
+                  <td className="d-flex justify-content-start">
                     <Button
                       variant='outline-danger'
-                      className="me-3"
+
+                      className="me-2"
+
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >
@@ -119,6 +120,7 @@ function Usuarios() {
                     </Button>
                     <Button
                       variant='outline-dark'
+                      className='ms-3'
                       size='sm'
                       onClick={() => mostrarFilmes(usuario.id)} // Chamando a função para mostrar o modal
                     >
