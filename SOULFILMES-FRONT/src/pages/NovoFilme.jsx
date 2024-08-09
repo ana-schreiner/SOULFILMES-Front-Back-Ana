@@ -26,7 +26,7 @@ function NovoFilme() {
   }
 
   return (
-    <main className="mt-4 container">
+    <main className="mt-4 w-50 p-5 justify-content-center container">
       <h1>Novo Filme</h1>
       <hr />
       <form onSubmit={handleSubmit(salvarFilme)}>
@@ -78,9 +78,11 @@ function NovoFilme() {
             <small className="text-danger">O ano de lançamento é inválido!</small>
           )}
         </div>
-        <Button className="mt-3" type="submit">
-          Cadastrar
-        </Button>
+        <div className="d-flex mt-2 justify-content-center">
+          <Button variant="outline-dark" type="submit">
+            Cadastrar
+          </Button>
+        </div>
       </form>
     </main>
   );
