@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 
-function UsuarioDetalhes({ usuarioId, showModal, setShowModal, atualizarListaUsuarios }) {
+function UsuarioDetalhes({ usuarioId, showModal, setShowModal, atualizarListaUsuarios, cleanSelectedUsuario }) {
   const [usuario, setUsuario] = useState(null);
   const [filmesUsuario, setFilmesUsuario] = useState([]);
   const [todosFilmes, setTodosFilmes] = useState([]);
@@ -30,30 +30,24 @@ function UsuarioDetalhes({ usuarioId, showModal, setShowModal, atualizarListaUsu
       const response = await addFilmeAoUsuario(usuarioId, filmeSelecionado);
       console.log("Resposta:", response);
 
-      const filmeAdicionado = todosFilmes.find(filme => filme.id === filmeSelecionado);
-      console.log("Filme selecionado:", filmeSelecionado);
-      console.log("Filme adicionado:", filmeAdicionado);
-
-
-      if (response.success) {
-        console.log("Filme adicionado com sucesso.");
-        const filmeAdicionado = todosFilmes.find(filme => filme.id === filmeSelecionado);
+      if (response && response.success) {
+        const filmeAdicionado = todosFilmes.find(filme => filme.id.toString() === filmeSelecionado);
         console.log("Filme adicionado:", filmeAdicionado);
 
         if (filmeAdicionado) {
           setFilmesUsuario(prev => [...prev, filmeAdicionado]);
-          toast.success("Filme adicionado com sucesso.");
+          toast.success(response.data.message);
           atualizarListaUsuarios();
         } else {
           console.error("Filme não encontrado na lista de todos filmes.");
           toast.error("Filme não encontrado na lista.");
         }
       } else {
-        throw new Error(response.message);
+        throw new Error(response.message || "Erro desconhecido ao adicionar filme.");
       }
     } catch (error) {
       console.error("Erro ao associar filme ao usuário:", error);
-      toast.error(`Erro ao adicionar filme: ${error.message}`);
+      toast.error(`Erro ao adicionar filme: ${error.message || "Erro desconhecido."}`);
     } finally {
       setFilmeSelecionado(""); // Limpa a seleção do filme independentemente do resultado
       navigate("/usuarios");
@@ -76,7 +70,10 @@ function UsuarioDetalhes({ usuarioId, showModal, setShowModal, atualizarListaUsu
   }
 
   return (
-    <Modal show={showModal} onHide={() => setShowModal(false)}>
+    <Modal show={showModal} onHide={() => {
+      cleanSelectedUsuario();
+      setShowModal(false);
+    }}>
       <Modal.Header closeButton>
         <Modal.Title>Filmes do Usuário</Modal.Title>
       </Modal.Header>

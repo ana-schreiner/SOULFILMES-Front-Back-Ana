@@ -59,6 +59,10 @@ function Usuarios() {
     setShowModal(true);
   };
 
+  function cleanSelectedUsuario() {
+    setSelectedUsuarioId(null);
+  }
+
   useEffect(() => {
     carregarUsuarios();
   }, []);
@@ -136,6 +140,7 @@ function Usuarios() {
           {/* Renderizando o modal de filmes usando o componente UsuarioDetalhes */}
           {selectedUsuarioId && (
             <UsuarioDetalhes
+              cleanSelectedUsuario={cleanSelectedUsuario}
               usuarioId={selectedUsuarioId}
               showModal={showModal}
               setShowModal={setShowModal}

@@ -153,7 +153,7 @@ function NovoUsuario() {
           {errors.pagamento && (
             <small className="text-danger">A forma de pagamento é inválida!</small>
           )}
-        </div>
+          </div>
         <div className="d-flex mt-2 justify-content-center">
           <Button variant="outline-dark" type="submit">
             Cadastrar

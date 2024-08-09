@@ -29,7 +29,7 @@ export async function deleteUsuario(id) {
     return response.data;
   } catch (error) {
     console.error("Erro ao deletar usuário:", error.message);
-    throw error;
+    return error;
   }
 }
 
