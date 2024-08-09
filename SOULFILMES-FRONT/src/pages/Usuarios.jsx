@@ -110,7 +110,7 @@ function Usuarios() {
                   <td>
                     <Button
                       variant='outline-danger'
-                      className="me-3"
+                      className="mb-1"
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >

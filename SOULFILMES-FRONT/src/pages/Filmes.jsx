@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { deleteFilme, getFilmes } from "../api/filmes";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 function Filmes() {
   const [filmes, setFilmes] = useState(null);
@@ -32,7 +34,7 @@ function Filmes() {
   return (
     <main className="mt-4 container">
       <h1>Filmes</h1>
-      <Button as={Link} to="/filmes/novo">
+      <Button variant='outline-dark' as={Link} to="/filmes/novo">
         Adicionar filme
       </Button>
       <hr />
@@ -56,10 +58,23 @@ function Filmes() {
                   <td>{filme.genero}</td>
                   <td>{filme.anoLancamento}</td>
                   <td>
-                    <Button variant="danger" size="sm" onClick={() => deletarFilme(filme.id)}>
-                      Excluir
+                    <Button 
+                    variant='outline-danger'
+                    className="me-2"
+                    size='sm' 
+                    onClick={() => deletarFilme(filme.id)}
+                    >
+                      <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
-                    <Button size="sm" as={Link} to={`/filmes/editar/${filme.id}`}>Editar</Button>
+
+                    <Button 
+                    variant='outline-dark'
+                    size="sm" 
+                    as={Link} 
+                    to={`/filmes/editar/${filme.id}`}
+                    >
+                      <FontAwesomeIcon icon={faEdit} />
+                    </Button>
                   </td>
                 </tr>
               );
