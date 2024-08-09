@@ -125,14 +125,15 @@ usuarioRouter.post("/usuarios/:usuarioId/filmes/:filmeId", async (req, res) => {
   try {
     const usuario = await Usuario.findByPk(usuarioId);
     const filme = await Filme.findByPk(filmeId);
+    const filmes = await usuario.getFilmes();
 
-    if (usuario && filme) {
-      await usuario.addFilme(filme);
-      res
-        .status(200)
-        .json({ message: "Filme adicionado ao usuário com sucesso!" });
+    if (!usuario || !filme) {
+      return res.status(404).json({ message: "Usuário ou Filme não encontrado!" });
+    } else if (filmes.some(f => f.id === filme.id)) {
+      return res.status(400).json({ message: "Filme já adicionado ao usuário!" });
     } else {
-      res.status(404).json({ message: "Usuário ou Filme não encontrado!" });
+      await usuario.addFilme(filme);
+      return res.status(200).json({ message: "Filme adicionado ao usuário com sucesso!" });
     }
   } catch (err) {
     console.error(err);
@@ -173,6 +174,32 @@ usuarioRouter.get("/usuarios/:id/filmes", async (req, res) => {
       .status(500)
       .json({
         message: "Erro ao buscar os filmes do usuário!",
+        error: err.message,
+      });
+  }
+});
+
+// Rota para remover um filme assistido pelo usuário
+usuarioRouter.delete("/usuarios/:usuarioId/filmes/:filmeId", async (req, res) => {
+  const { usuarioId, filmeId } = req.params;
+
+  try {
+    const usuario = await Usuario.findByPk(usuarioId);
+    const filme = await Filme.findByPk(filmeId);
+
+    if (usuario && filme) {
+      await usuario.removeFilme(filme);
+      res
+        .status(200)
+        .json({ message: "Filme removido do usuário com sucesso!" });
+    }
+
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({
+        message: "Erro ao remover o Filme do usuário!",
         error: err.message,
       });
   }

@@ -42,7 +42,8 @@ function Usuarios() {
       deleteUsuario(id)
         .then((resposta) => {
           toast.success(resposta.message);
-          carregarUsuarios();
+          // Atualiza a lista de usuários sem recarregar todos os dados
+          setUsuarios(usuarios.filter(usuario => usuario.id !== id));
         })
         .catch((err) => {
           toast.error("Erro ao excluir usuário.");
@@ -50,6 +51,7 @@ function Usuarios() {
         });
     }
   }
+
 
   // Função para abrir o modal e definir o usuário selecionado
   const mostrarFilmes = (usuarioId) => {
@@ -137,6 +139,7 @@ function Usuarios() {
               usuarioId={selectedUsuarioId}
               showModal={showModal}
               setShowModal={setShowModal}
+              atualizarListaUsuarios={carregarUsuarios} // Passando a função para atualizar a lista de usuários
             />
           )}
         </>
