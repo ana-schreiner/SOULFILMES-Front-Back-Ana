@@ -33,3 +33,27 @@ export async function updateUsuario(id, data) {
   const response = await axios.put(`http://localhost:3001/usuarios/${id}`, data);
   return response.data;
 }
+
+
+// Função para associar um filme a um usuário
+export async function addFilmeAoUsuario(usuarioId, filmeId) {
+  try {
+    const response = await axios.post(`http://localhost:3001/usuarios/${usuarioId}/filmes/${filmeId}`);
+    return response.data; // Objeto com mensagem de sucesso
+  } catch (error) {
+    console.error("Erro ao associar filme ao usuário:", error.response?.data || error.message);
+    throw error;
+  }
+}
+
+
+// Função para desassociar um filme de um usuário específico
+export async function removeFilmeDoUsuario(usuarioId, filmeId) {
+  try {
+    const response = await axios.delete(`http://localhost:3001/usuarios/${usuarioId}/filmes/${filmeId}`);
+    return response.data; // Objeto com message ou status
+  } catch (error) {
+    console.error("Erro ao desassociar filme do usuário:", error.response.data);
+    throw error;
+  }
+}

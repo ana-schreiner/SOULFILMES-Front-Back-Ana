@@ -1,8 +1,8 @@
+import { useState, useEffect } from "react";
 import { Button, Table, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { deleteUsuario, getUsuarios } from "../api/usuarios";
-import { getFilmesDoUsuario } from "../api/filmes"; // Importar a função para obter filmes
-import { useEffect, useState } from "react";
+import UsuarioDetalhes from "./UsuarioDetalhes"; // Importar o componente
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
 // fontawesome
@@ -11,14 +11,13 @@ import { faEdit, faTrashAlt, faFilm } from '@fortawesome/free-solid-svg-icons';
 
 function Usuarios() {
   const [usuarios, setUsuarios] = useState(null);
-  const [filmes, setFilmes] = useState([]);
-  const [showModal, setShowModal] = useState(false);
+  const [selectedUsuarioId, setSelectedUsuarioId] = useState(null); // Estado para armazenar o usuário selecionado
+  const [showModal, setShowModal] = useState(false); // Estado para controlar a exibição do modal
 
   function carregarUsuarios() {
     getUsuarios()
       .then((dados) => {
         const usuariosEndereco = dados.map((usuario) => {
-          // Verifica se o endereço não é nulo antes de acessar suas propriedades
           const endereco = usuario.endereco || {};
           return {
             ...usuario,
@@ -53,18 +52,12 @@ function Usuarios() {
     }
   }
 
-  const carregarFilmes = async (usuarioId) => {
-    try {
-      const filmesData = await getFilmesDoUsuario(usuarioId);
-      setFilmes(filmesData);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Erro ao carregar os filmes do usuário:", error);
-      toast.error(
-        "Erro ao carregar filmes. Verifique se o usuário possui filmes associados."
-      );
-    }
+  // Função para abrir o modal e definir o usuário selecionado
+  const mostrarFilmes = (usuarioId) => {
+    setSelectedUsuarioId(usuarioId);
+    setShowModal(true);
   };
+
   useEffect(() => {
     carregarUsuarios();
   }, []);
@@ -120,16 +113,14 @@ function Usuarios() {
                       size='sm'
                       as={Link}
                       to={`/usuarios/editar/${usuario.id}`}
+                      className="me-3"
                     >
                       <FontAwesomeIcon icon={faEdit} />
                     </Button>
-                  </td>
-                  <td>
                     <Button
                       variant='outline-dark'
-                      className="ms-3"
                       size='sm'
-                      onClick={() => carregarFilmes(usuario.id)}
+                      onClick={() => mostrarFilmes(usuario.id)} // Chamando a função para mostrar o modal
                     >
                       <FontAwesomeIcon icon={faFilm} />
                     </Button>
@@ -138,36 +129,14 @@ function Usuarios() {
               ))}
             </tbody>
           </Table>
-
-          <Modal show={showModal} onHide={() => setShowModal(false)}>
-            <Modal.Header closeButton>
-              <Modal.Title>Filmes do Usuário</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {filmes.length > 0 ? (
-                <Table striped bordered hover>
-                  <thead>
-                    <tr>
-                      <th>Título</th>
-                      <th>Gênero</th>
-                      <th>Ano</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filmes.map((filme) => (
-                      <tr key={filme.id}>
-                        <td>{filme.titulo}</td>
-                        <td>{filme.genero}</td>
-                        <td>{filme.anoLancamento}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
-              ) : (
-                <p>Não há filmes associados a este usuário.</p>
-              )}
-            </Modal.Body>
-          </Modal>
+          {/* Renderizando o modal de filmes usando o componente UsuarioDetalhes */}
+          {selectedUsuarioId && (
+            <UsuarioDetalhes
+              usuarioId={selectedUsuarioId}
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
+          )}
         </>
       ) : (
         <Loader />
