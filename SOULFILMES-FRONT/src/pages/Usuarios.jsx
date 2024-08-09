@@ -107,10 +107,10 @@ function Usuarios() {
                   <td>{usuario.rua}</td>
                   <td>{usuario.numero}</td>
                   <td>{usuario.pagamento}</td>
-                  <td>
+                  <td className="d-flex justify-content-start">
                     <Button
                       variant='outline-danger'
-                      className="mb-1"
+                      className="me-2"
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >

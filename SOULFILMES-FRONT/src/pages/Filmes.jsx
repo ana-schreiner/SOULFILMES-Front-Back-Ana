@@ -73,7 +73,7 @@ function Filmes() {
                     as={Link} 
                     to={`/filmes/editar/${filme.id}`}
                     >
-                      <FontAwesomeIcon icon={faEdit} />
+                      <FontAwesomeIcon icon={faEdit}/>
                     </Button>
                   </td>
                 </tr>
