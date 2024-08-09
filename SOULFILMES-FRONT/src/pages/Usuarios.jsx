@@ -5,7 +5,6 @@ import { getFilmesDoUsuario } from "../api/filmes"; // Importar a função para 
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-// fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faFilm } from "@fortawesome/free-solid-svg-icons";
 
@@ -106,10 +105,12 @@ function Usuarios() {
                   <td>{usuario.rua}</td>
                   <td>{usuario.numero}</td>
                   <td>{usuario.pagamento}</td>
-                  <td>
+                  <td className="d-flex justify-content-start">
                     <Button
                       variant='outline-danger'
-                      className='me-3'
+
+                      className="me-2"
+
                       size='sm'
                       onClick={() => deletarUsuario(usuario.id)}
                     >

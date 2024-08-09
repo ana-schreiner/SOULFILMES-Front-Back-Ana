@@ -5,8 +5,9 @@ import { deleteFilme, getFilmes } from "../api/filmes";
 import { getUsuariosDoFilme } from "../api/usuarios";
 import Loader from "../components/Loader";
 import toast from "react-hot-toast";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 
 function Filmes() {
   const [filmes, setFilmes] = useState(null);
@@ -63,8 +64,9 @@ function Filmes() {
   return (
     <main className='mt-4 container'>
       <h1>Filmes</h1>
-      <Button variant='outline-dark' as={Link} to='/filmes/novo'>
-        Adicionar Filme
+
+      <Button variant='outline-dark' as={Link} to="/filmes/novo">
+        Adicionar filme
       </Button>
       <hr />
       {filmes ? (
@@ -88,31 +90,24 @@ function Filmes() {
                   <td>{filme.genero}</td>
                   <td>{filme.anoLancamento}</td>
                   <td>
-                    <Button
-                      variant='outline-danger'
-                      size='sm'
-                      className='me-2' // Adiciona margem à direita
-                      onClick={() => deletarFilme(filme.id)}
+
+                    <Button 
+                    variant='outline-danger'
+                    className="me-2"
+                    size='sm' 
+                    onClick={() => deletarFilme(filme.id)}
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </Button>
-                    <Button
-                      variant='outline-dark'
-                      size='sm'
-                      as={Link}
-                      to={`/filmes/editar/${filme.id}`}
+
+                    <Button 
+                    variant='outline-dark'
+                    size="sm" 
+                    as={Link} 
+                    to={`/filmes/editar/${filme.id}`}
                     >
-                      <FontAwesomeIcon icon={faEdit} />
-                    </Button>
-                  </td>
-                  <td>
-                    <Button
-                      variant='outline-dark'
-                      className='ms-3'
-                      size='sm'
-                      onClick={() => carregarUsuarios(filme.id)}
-                    >
-                      <FontAwesomeIcon icon={faUser} />
+                      <FontAwesomeIcon icon={faEdit}/>
+
                     </Button>
                   </td>
                 </tr>

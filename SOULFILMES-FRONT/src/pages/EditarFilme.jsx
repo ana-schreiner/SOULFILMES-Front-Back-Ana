@@ -44,12 +44,16 @@ function EditarFilme() {
   }, []);
 
   return (
-    <main className='mt-4 container'>
+
+    <main className="mt-4 w-50 p-5 justify-content-center container">
+
       <h1>Editar filme</h1>
       <hr />
       <form onSubmit={handleSubmit(atualizarFilme)}>
         <div>
-          <label htmlFor='titulo'>titulo</label>
+
+          <label htmlFor="titulo">Título</label>
+
           <input
             type='text'
             id='titulo'
@@ -57,11 +61,13 @@ function EditarFilme() {
             {...register("titulo", { required: true, maxLength: 200 })}
           />
           {errors.titulo && (
-            <small className='text-danger'>O titulo é inválido!</small>
+
+            <small className="text-danger">O título é inválido!</small>
           )}
         </div>
         <div>
-          <label htmlFor='diretor'>diretor</label>
+          <label htmlFor="diretor">Diretor</label>
+
           <input
             type='text'
             id='diretor'
@@ -73,7 +79,9 @@ function EditarFilme() {
           )}
         </div>
         <div>
-          <label htmlFor='genero'>genero</label>
+
+          <label htmlFor="genero">Gênero</label>
+
           <input
             type='text'
             id='genero'
@@ -81,7 +89,9 @@ function EditarFilme() {
             {...register("genero", { required: true, maxLength: 200 })}
           />
           {errors.genero && (
-            <small className='text-danger'>O genero é inválido!</small>
+
+            <small className="text-danger">O gênero é inválido!</small>
+
           )}
         </div>
         <div>
@@ -96,9 +106,12 @@ function EditarFilme() {
             <small className='text-danger'>O ano é inválido!</small>
           )}
         </div>
-        <Button className='mt-3' type='submit'>
-          Atualizar
-        </Button>
+
+        <div className="d-flex mt-2 justify-content-center">
+          <Button variant="outline-dark" type="submit">
+            Atualizar
+          </Button>
+        </div>
       </form>
     </main>
   );
