@@ -9,22 +9,27 @@ import Filmes from "./pages/Filmes";
 import NovoFilme from "./pages/NovoFilme";
 import EditarFilme from "./pages/EditarFilme";
 import Footer from "./components/Footer";
+import './index.css';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/usuarios' element={<Usuarios />} />
-          <Route path='/usuarios/novo' element={<NovoUsuario />} />
-          <Route path='/usuarios/editar/:id' element={<EditarUsuario />} />
-          <Route path='/filmes' element={<Filmes />} />
-          <Route path='/filmes/novo' element={<NovoFilme />} />
-          <Route path='/filmes/editar/:id' element={<EditarFilme />} />
-        </Routes>
-        <Footer />
+        <div className="app-container">
+          <div className="content">
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/usuarios' element={<Usuarios />} />
+              <Route path='/usuarios/novo' element={<NovoUsuario />} />
+              <Route path='/usuarios/editar/:id' element={<EditarUsuario />} />
+              <Route path='/filmes' element={<Filmes />} />
+              <Route path='/filmes/novo' element={<NovoFilme />} />
+              <Route path='/filmes/editar/:id' element={<EditarFilme />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </BrowserRouter>
       <Toaster position='bottom-right' />
     </>

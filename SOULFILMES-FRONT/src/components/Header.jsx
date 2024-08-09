@@ -14,7 +14,7 @@ function Header() {
             alt="Logo"
           />
         </Link>
-        <div className="d-flex gap-5">
+        <div className="d-flex gap-5 fw-bolder">
           <Link to="/usuarios">Usuários</Link>
           <Link to="/filmes">Filmes</Link>
         </div>

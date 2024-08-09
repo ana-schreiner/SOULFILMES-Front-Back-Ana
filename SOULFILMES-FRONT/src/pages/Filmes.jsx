@@ -60,7 +60,7 @@ function Filmes() {
   }, []);
 
   return (
-    <main className='mt-4 container'>
+    <main className='mt-4 mb-4 container rounded bg-main'>
       <h1>Filmes</h1>
 
       <Button variant='outline-dark' as={Link} to="/filmes/novo">

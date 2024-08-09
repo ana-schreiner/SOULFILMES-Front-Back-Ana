@@ -15,7 +15,7 @@ function Footer() {
             alt="Logo"
           />
         </Link>
-        <nav className="footer-brand mx-auto text-center text-white">&copy; 2024 - 2025 Todos os direitos reservados</nav>
+        <nav className="footer-brand mx-auto text-center text-white fw-bolder">&copy; 2024 - 2025 Todos os direitos reservados</nav>
       </div>
     </footer>
   );

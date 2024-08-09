@@ -1,18 +1,62 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 
-.conteudo {
-    min-height: calc(100vh - 80px);
-    display: flex;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+.bg-main {
+    background-color: #ececdf;
+}
+
+body {
+    background-color: #c79e83;
+}
+
+
+html, body {
+    height: 100%;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer {
+    padding: 10px;
+    text-align: center;
+    background-color: #92735e;
+    border-radius: 5px;
+}
+
+
 .full-size-image {
+    position: absolute;
     width: 100%;
-    height: auto;
-    flex-grow: 1;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover; 
+    z-index: -1;
+}
+
+.conteudo {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
 }
 
 .header {
-    background-color: #2a2a2a;
+    background-color: #92735e;
+    border-radius: 5px;
 }
 
 .header nav img {
@@ -21,20 +65,10 @@
 }
 
 .header nav a {
-    color: #cda45e;
+    color: #f8f4f0;
     text-decoration: none;
 }
 
 .header nav a:hover {
     color: #ffcc00;
-}
-
-.footer {
-    position: relative;
-    background-color: #2a2a2a;
-    color: white;
-}
-
-.footer-brand {
-    margin-top: 10px;
 }
