@@ -23,7 +23,22 @@ function EditarUsuario() {
 
   useEffect(() => {
     getUsuario(id).then((data) => {
-      setUsuario(data);
+      // Verifica se o objeto 'endereco' existe e tem todas as propriedades necessárias
+      const enderecoCompleto = {
+        rua: "",
+        numero: "",
+        cidade: "",
+        uf: "",
+        cep: "",
+        pagamento: "",
+        ...data.endereco, // Isso irá sobrescrever os valores vazios se 'endereco' existir e tiver dados
+      };
+
+      // Atualiza o estado 'usuario' com os dados do usuário e o 'endereco' completo
+      setUsuario({
+        ...data,
+        endereco: enderecoCompleto,
+      });
     });
   }, [id]);
 
@@ -52,8 +67,9 @@ function EditarUsuario() {
   };
 
   return (
-    <main className="container mt-4">
+    <main className="mt-4 w-50 p-5 justify-content-center container">
       <h1>Editar Usuário</h1>
+      <hr />
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="nome">
           <Form.Label>Nome</Form.Label>
@@ -127,7 +143,25 @@ function EditarUsuario() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Button type="submit">Salvar</Button>
+        <Form.Group controlId="pagamento">
+          <Form.Label>Pagamento</Form.Label>
+          <Form.Control
+            as="select"
+            name="pagamento"
+            value={usuario.endereco.pagamento}
+            onChange={handleChange}
+          >
+            <option value="" disabled selected>Selecione...</option>
+            <option value="Boleto">Boleto</option>
+            <option value="Cartão">Cartão</option>
+            <option value="Pix">Pix</option>
+          </Form.Control>
+        </Form.Group>
+        <div className="d-flex mt-2 justify-content-center">
+          <Button variant="outline-dark" type="submit">
+            Atualizar
+          </Button>
+        </div>
       </Form>
     </main>
   );
