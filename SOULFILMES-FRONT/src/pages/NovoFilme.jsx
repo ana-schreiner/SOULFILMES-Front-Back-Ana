@@ -26,7 +26,7 @@ function NovoFilme() {
   }
 
   return (
-    <main className="mt-4 w-50 p-5 justify-content-center container">
+    <main className="mt-4 mb-4 w-50 p-5 justify-content-center container rounded bg-main">
       <h1>Novo Filme</h1>
       <hr />
       <form onSubmit={handleSubmit(salvarFilme)}>

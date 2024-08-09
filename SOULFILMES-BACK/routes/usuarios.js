@@ -47,7 +47,7 @@ usuarioRouter.post("/usuarios", async (req, res) => {
         nome,
         email,
         telefone,
-        Endereco: endereco,
+        endereco: endereco,
       },
       {
         include: [Endereco],

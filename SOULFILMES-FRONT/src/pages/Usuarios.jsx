@@ -63,8 +63,8 @@ function Usuarios() {
     carregarUsuarios();
   }, []);
 
-  return (
-    <main className='mt-4 container'>
+  return (      
+    <main className='mt-4 mb-4 container rounded bg-main'>
       <h1>Usuários</h1>
       <Button variant='outline-dark' as={Link} to='/usuarios/novo'>
         Adicionar Usuário

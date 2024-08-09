@@ -38,7 +38,7 @@ function NovoUsuario() {
 
 
   return (
-    <main className="mt-4 w-50 p-5 justify-content-center container">
+    <main className="mt-4 mb-4 w-50 p-5 justify-content-center container rounded bg-main">
       <h1>Novo Usuário</h1>
       <hr />
       <Form onSubmit={handleSubmit(salvarUsuario)}>
@@ -145,10 +145,10 @@ function NovoUsuario() {
             className="form-control"
             {...register("pagamento", { required: true })}
           >
-            <option value="" selected disabled>Selecione</option>
-            <option value="">Boleto</option>
-            <option value="">Cartão</option>
-            <option value="">Pix</option>
+            <option value="" disabled>Selecione</option>
+            <option value="boleto">Boleto</option>
+            <option value="cartao">Cartão</option>
+            <option value="pix">Pix</option>
           </select>
           {errors.pagamento && (
             <small className="text-danger">A forma de pagamento é inválida!</small>
